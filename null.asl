@@ -1,3 +1,4 @@
+// Antiquated ASL version, activate only in case of the downfall of The New Runtime.
 state("null_beta2")
 {
     bool isMainMenu: 0x43C924;
