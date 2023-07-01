@@ -12,7 +12,7 @@ use asr::{
 };
 use bytemuck::Pod;
 
-const PROCESS_NAME: &str = "null_beta2.exe";
+const PROCESS_NAME: &str = "null_1.0.exe";
 
 asr::async_main!(stable);
 
@@ -159,8 +159,7 @@ async fn main() {
 }
 
 fn should_start(state: &State) -> bool {
-    // state.is_main_menu.changed_to(&0)
-    false
+    state.is_main_menu.changed_to(&0)
 }
 
 fn should_split(
@@ -183,8 +182,7 @@ fn should_split(
 }
 
 fn should_reset(state: &State) -> bool {
-     // state.is_main_menu.changed_to(&1)
-    state.timer.decreased()
+    state.is_main_menu.changed_to(&1)
 }
 
 fn time_components_to_duration(
