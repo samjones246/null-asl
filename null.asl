@@ -23,6 +23,11 @@ start
     return !current.isMainMenu && old.isMainMenu;
 }
 
+reset
+{
+    return current.isMainMenu && !old.isMainMenu;
+}
+
 onReset
 {
     vars.SplitsDone.Clear();
