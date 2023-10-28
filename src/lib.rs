@@ -8,7 +8,7 @@ use asr::{
     future::{next_tick, IntoOption}, 
     Error, Address, 
     watcher::Pair, 
-    Settings
+    settings::Gui,
 };
 use bytemuck::Pod;
 
@@ -16,7 +16,7 @@ const PROCESS_NAME: &str = "null_1.0.exe";
 
 asr::async_main!(stable);
 
-#[derive(Settings)]
+#[derive(Gui)]
 struct Settings {
     /// Split after each level
     #[default = false]
@@ -124,13 +124,14 @@ struct State<'a> {
 
 #[allow(dead_code)]
 async fn main() {
-    let settings = Settings::register();
+    let mut settings = Settings::register();
     loop {
         let process = Process::wait_attach(PROCESS_NAME).await;
         if let Ok(mut watchers) = Watchers::new(&process) {
             let mut splits_done: HashSet<u8> = HashSet::new();
             process.until_closes(async {
                 loop {
+                    settings.update();
                     if let Some(state) = watchers.update(&process) {
                         timer::set_game_time(state.timer.current);
                         timer::pause_game_time();
